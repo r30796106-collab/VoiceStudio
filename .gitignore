@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+*.log
+
+# Personal voice recordings and profiles
+voice_profiles/*
+!voice_profiles/.gitkeep
+
+# Generated projects and audio
+voice_projects/*
+!voice_projects/.gitkeep
+outputs/*
+!outputs/.gitkeep
+
+# Downloaded model files
+models/*
+!models/.gitkeep
+
+.pytest_cache/
