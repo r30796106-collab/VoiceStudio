@@ -19,4 +19,13 @@ text-to-speech and dubbing project.
 - Keep AnimeRecapBot integration for a later milestone.
 
 ## Current Status
-Repository initialized. Development not started.
+Milestone 1 core foundation has been added on `dev/linux-first`:
+- Filesystem settings and directory initialization
+- Project-name, project-id, and relative-path validation
+- Managed atomic byte-file writes and reads
+- Project creation, manifest loading, and listing
+- Standard-library unit tests
+- GitHub Actions test matrix for Python 3.10–3.14
+
+No speech models or heavyweight ML dependencies are installed by this milestone.
+Local and CI test results are pending; this is not yet a completed TTS or voice-cloning application.
