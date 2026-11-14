@@ -32,7 +32,7 @@ class ProjectManager:
             manifest_path = project_dir / "project.json"
             with manifest_path.open("x", encoding="utf-8") as stream:
                 json.dump(manifest, stream, ensure_ascii=False, indent=2)
-                stream.write("\\n")
+                stream.write("\n")
             return manifest
         except Exception:
             shutil.rmtree(project_dir, ignore_errors=True)
