@@ -11,8 +11,9 @@ Independent Hindi-English voice cloning, TTS and dubbing application designed fo
 - profiles.py stores consent metadata locally, rejects unsafe profile IDs and symlink targets, and uses owner-only file permissions.
 - Audio recordings, generated audio, model weights and personal profile metadata are excluded from Git.
 
-### Text preparation
+### Text and audio preparation
 - text.py performs Unicode NFC normalization, bounded input validation, Hindi/English script hints and Hindi/English sentence splitting.
+- audio.py validates bounded uncompressed PCM WAV metadata and computes streaming SHA-256 hashes without loading entire recordings into memory.
 - No translation, network request or model execution is performed.
 
 ## 3. Planned modules

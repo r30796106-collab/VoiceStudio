@@ -23,6 +23,7 @@ An independent, open-source-first voice cloning, text-to-speech and dubbing proj
 - consent.py: strict consent schema and validation.
 - profiles.py: local metadata store with owner-only file permissions and safe profile IDs.
 - text.py: Unicode-normalized Hindi/English text preparation, language hints and sentence segmentation.
+- audio.py: bounded PCM WAV inspection and streaming SHA-256 hashing before audio is passed to a model.
 - Python 3.12–3.14 CI and automated tests.
 
 ## Setup
