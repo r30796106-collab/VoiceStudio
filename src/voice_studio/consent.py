@@ -38,12 +38,14 @@ class VoiceConsent:
             raise ValueError("consent_recorded_at must be an ISO-8601 timestamp") from exc
         if recorded.tzinfo is None:
             raise ValueError("consent_recorded_at must include a timezone")
-        if self.consent_method not in {"self_attested", "written_release", "recorded_release"}:
+        if not isinstance(self.consent_method, str) or self.consent_method not in {"self_attested", "written_release", "recorded_release"}:
             raise ValueError("consent_method is not an approved explicit-consent method")
         if not isinstance(self.source_audio_sha256, str) or not _SHA256.fullmatch(self.source_audio_sha256):
             raise ValueError("source_audio_sha256 must be a lowercase SHA-256 digest")
         if not isinstance(self.scopes, tuple) or not self.scopes:
             raise ValueError("at least one consent scope is required")
+        if any(not isinstance(scope, str) for scope in self.scopes):
+            raise ValueError("consent scopes must be text values")
         if len(set(self.scopes)) != len(self.scopes) or any(scope not in _ALLOWED_SCOPES for scope in self.scopes):
             raise ValueError("consent scopes contain duplicates or unsupported operations")
 

@@ -14,12 +14,14 @@ class VoiceProfileStore:
 
     def __init__(self, root: str | Path) -> None:
         self.root = Path(root).expanduser()
-        if self.root.is_symlink():
-            raise ValueError("voice profile root must not be a symlink")
+        for ancestor in (self.root, *self.root.parents):
+            if ancestor.is_symlink():
+                raise ValueError("voice profile root path must not contain symlinks")
         self.root.mkdir(parents=True, exist_ok=True, mode=0o700)
         if self.root.is_symlink() or not self.root.is_dir():
             raise ValueError("voice profile root must be a regular directory")
         self.root = self.root.resolve(strict=True)
+        os.chmod(self.root, 0o700)
 
     def create_profile(self, profile_id: str, consent: VoiceConsent) -> Path:
         profile_id = validate_profile_id(profile_id)
@@ -43,9 +45,10 @@ class VoiceProfileStore:
                 stream.write(encoded)
                 stream.flush()
                 os.fsync(stream.fileno())
-            if target.exists() or target.is_symlink():
-                raise FileExistsError(f"voice profile already exists: {profile_id}")
-            os.replace(temporary, target)
+            # Hard-link publication is atomic and refuses to overwrite a file
+            # created by another process after the initial existence check.
+            os.link(temporary, target, follow_symlinks=False)
+            os.unlink(temporary)
         except Exception:
             try:
                 os.close(fd)

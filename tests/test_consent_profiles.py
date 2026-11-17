@@ -61,3 +61,27 @@ def test_profile_store_rejects_symlink_root_and_profile(tmp_path: Path):
     (real / "linked.json").symlink_to(tmp_path / "outside.json")
     with pytest.raises(ValueError, match="symlink"):
         store.create_profile("linked", consent())
+
+
+def test_profile_store_uses_private_root_permissions_and_never_overwrites_racing_file(tmp_path, monkeypatch):
+    import os
+    store = VoiceProfileStore(tmp_path / "profiles")
+    assert store.root.stat().st_mode & 0o777 == 0o700
+    original_link = os.link
+
+    def create_racing_target(source, destination, *, follow_symlinks=True):
+        Path(destination).write_text("existing-owner-data", encoding="utf-8")
+        return original_link(source, destination, follow_symlinks=follow_symlinks)
+
+    monkeypatch.setattr(os, "link", create_racing_target)
+    with pytest.raises(FileExistsError):
+        store.create_profile("racing", consent())
+    assert (store.root / "racing.json").read_text(encoding="utf-8") == "existing-owner-data"
+    assert not list(store.root.glob(".profile-*"))
+
+
+def test_consent_rejects_non_text_scope_values_and_methods():
+    with pytest.raises(ValueError, match="scopes must be text"):
+        consent(scopes=(["tts"],))
+    with pytest.raises(ValueError, match="consent_method"):
+        consent(consent_method=[])
