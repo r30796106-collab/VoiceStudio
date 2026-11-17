@@ -58,7 +58,14 @@ Independent Hindi-English voice cloning, TTS and dubbing application designed fo
 - Python 3.14 compatibility is included in CI.
 - Target device memory is limited; model selection must use measured RAM, storage, latency and audio quality rather than model-size claims alone.
 
-## 7. Release sequence
+## 7. Runtime and model direction
+
+- First TTS baseline: sherpa-onnx with compact Hindi/English Piper VITS voices.
+- Voice cloning remains a separate backend: Pocket TTS Hindi is a research candidate; English cloning needs its own model.
+- Model choice is gated on exact license/hash review and real Android ARM64/Termux memory, latency, quality and stability benchmarks.
+- See docs/MODEL_SELECTION.md for current evidence and rejected candidates.
+
+## 8. Release sequence
 
 1. Complete lightweight core and audio inspection.
 2. Benchmark open-source Hindi/English TTS models on the target device.
