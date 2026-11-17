@@ -2,6 +2,7 @@
 
 __version__ = "0.1.0"
 
+from .audio import AudioInfo, inspect_wav
 from .core import VoiceStudioPaths, resolve_workspace_path, validate_identifier
 
-__all__ = ["VoiceStudioPaths", "resolve_workspace_path", "validate_identifier"]
+__all__ = ["AudioInfo", "VoiceStudioPaths", "inspect_wav", "resolve_workspace_path", "validate_identifier"]
