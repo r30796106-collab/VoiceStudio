@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from voice_studio.core import VoiceStudioPaths, resolve_workspace_path, validate_identifier
+from src.voice_studio.core import VoiceStudioPaths, resolve_workspace_path, validate_identifier
 
 
 class TestVoiceStudioCore(unittest.TestCase):
