@@ -14,7 +14,7 @@ class TestAudioInspection(unittest.TestCase):
                 output.setnchannels(1)
                 output.setsampwidth(2)
                 output.setframerate(16000)
-                output.writeframes(b"\\x00\\x00" * 16000)
+                output.writeframes(bytes(2) * 16000)
             info = inspect_wav(path)
             self.assertEqual(info.channels, 1)
             self.assertEqual(info.sample_width_bytes, 2)
