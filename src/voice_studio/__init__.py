@@ -1,3 +1,13 @@
-"""VoiceStudio: independent voice and dubbing toolkit."""
+"""VoiceStudio: offline-first, consent-based Hindi-English voice tools."""
 
-__version__ = "0.1.0"
+from .consent import VoiceConsent
+from .profiles import VoiceProfileStore
+from .text import detect_language_hint, normalize_text, split_sentences
+
+__all__ = [
+    "VoiceConsent",
+    "VoiceProfileStore",
+    "detect_language_hint",
+    "normalize_text",
+    "split_sentences",
+]
