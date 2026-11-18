@@ -19,10 +19,10 @@ application designed for Android Termux.
 - Profile metadata
 
 ### Speech Engine
-- Text normalization
-- Language detection
-- TTS model interface
-- Voice cloning model interface
+- Unicode-safe Hindi/English text normalization and segmentation
+- Optional local eSpeak NG PCM WAV backend
+- Future neural TTS and voice-cloning adapters must remain optional and be benchmarked on Android ARM64
+- Consent-gated voice cloning is not implemented yet
 
 ### Dubbing
 - Script segmentation
