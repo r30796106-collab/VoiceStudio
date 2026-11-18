@@ -26,6 +26,8 @@ text-to-speech and dubbing project.
 
 ## Local speech synthesis (optional)
 
+From the repository root, install the lightweight Python package with `python -m pip install -e .`.
+
 Install eSpeak NG using your trusted operating-system package manager. The Python package does not install native binaries or download models. Example:
 
 ```python
