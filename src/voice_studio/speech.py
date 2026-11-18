@@ -1,7 +1,6 @@
 """Optional local eSpeak NG speech backend; no network or model downloads."""
 from __future__ import annotations
 
-import re
 import subprocess
 from pathlib import Path
 
@@ -44,6 +43,8 @@ class EspeakNGBackend:
         target = Path(output_path)
         if target.suffix.lower() != ".wav":
             raise ValueError("output_path must use the .wav extension")
+        if target.is_symlink():
+            raise ValueError("output_path must not be a symlink")
         if target.exists() and target.is_dir():
             raise ValueError("output_path must be a file path")
         target.parent.mkdir(parents=True, exist_ok=True)
