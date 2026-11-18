@@ -52,4 +52,7 @@ def test_invalid_consent_is_rejected(changes):
 
 
 def test_unknown_scope_is_never_permitted():
-    assert not grant().permits("training", at=NOW)
+    consent = grant()
+    assert not consent.permits("training", at=NOW)
+    assert not consent.permits(None, at=NOW)
+    assert not consent.permits([], at=NOW)
