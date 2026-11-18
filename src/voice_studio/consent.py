@@ -52,7 +52,7 @@ class VoiceConsent:
 
     def permits(self, scope: str, *, at: datetime | None = None) -> bool:
         """Return true only while this grant is active for the requested scope."""
-        if scope not in _ALLOWED_SCOPES or scope not in self.scopes:
+        if not isinstance(scope, str) or scope not in _ALLOWED_SCOPES or scope not in self.scopes:
             return False
         instant = _aware_utc(at or datetime.now(timezone.utc), "at")
         return (
